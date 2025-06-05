@@ -1,103 +1,162 @@
-import Image from "next/image";
+// app/page.tsx
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="min-h-screen flex flex-col bg-[#FFE1E9]">
+      {/* Navbar */}
+      <header className="w-full py-4 px-6 flex justify-between items-center bg-white shadow-sm">
+        <h1 className="text-2xl font-extrabold text-purple-700">NotaGeng</h1>
+        <nav className="space-x-4">
+          <Link
+            href="/login"
+            className="px-3 py-1.5 text-sm font-medium text-purple-700 border-2 border-purple-700 rounded-md hover:bg-purple-700 hover:text-white transition"
+          >
+            Log Masuk
+          </Link>
+          <Link
+            href="/register"
+            className="px-3 py-1.5 text-sm font-medium text-white bg-purple-700 rounded-md hover:bg-purple-800 transition"
+          >
+            Daftar
+          </Link>
+        </nav>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Hero Section */}
+      <section className="flex flex-col-reverse lg:flex-row items-center justify-between flex-grow px-6 lg:px-20 py-16">
+        {/* Left: Text */}
+        <div className="w-full lg:w-1/2 space-y-6 text-center lg:text-left">
+          <h2 className="text-4xl sm:text-5xl font-extrabold text-purple-800">
+            Kuliah, Tugasan, & Nota  
+            <span className="text-pink-500">— Semua Dalam Satu</span>
+          </h2>
+          <p className="text-gray-700 max-w-md mx-auto lg:mx-0 text-lg">
+            NotaGeng memudahkan korang berkongsi dan organize semua nota subjek.
+            Geng study jadi lebih seronok—tak payah risau hilang kertas!
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <Link
+              href="/register"
+              className="px-6 py-3 bg-purple-700 text-white font-semibold rounded-md shadow hover:bg-purple-800 transition"
+            >
+              Jom Daftar
+            </Link>
+            <Link
+              href="/dashboard"
+              className="px-6 py-3 border-2 border-pink-500 text-pink-500 font-semibold rounded-md hover:bg-pink-500 hover:text-white transition"
+            >
+              Explore Nota Shared
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+
+        {/* Right: Illustration */}
+        <div className="w-full lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
+          {/* Replace src with your own mascot/illustration */}
           <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            src="/illustrations/study-mascot.png"
+            alt="Study Mascot"
+            width={400}
+            height={400}
+            className="object-contain"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="bg-white py-16 px-6 lg:px-20">
+        <h3 className="text-3xl font-bold text-purple-800 text-center mb-10">
+          Apa Yang Korang Boleh Buat?
+        </h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">📂</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Organize Semua Nota</h4>
+            <p className="text-gray-600">
+              Simpan nota Sejarah, Sains, Bahasa, Matematik—semuanya dalam folder subjek tersusun.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">📲</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Kongsi Senang Giler</h4>
+            <p className="text-gray-600">
+              Hantar pautan nota ke WhatsApp, Telegram, atau share dekat group geng belajar.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">🔍</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Cari, Cari, Cepat Dapat</h4>
+            <p className="text-gray-600">
+              Cari nota ikut tajuk, tag, atau subjek—tak perlu skim semua fail lama.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">⭐</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Rating & Ulasan</h4>
+            <p className="text-gray-600">
+              Nilai nota kawan atau beri feedback—bantu geng korang upgrade nota lagi power!
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">🔒</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Privasi Tersendiri</h4>
+            <p className="text-gray-600">
+              Boleh pilih private (cuma korang boleh tengok) atau share dengan geng belajar.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl shadow hover:shadow-lg transition">
+            <span className="text-5xl mb-3">📱</span>
+            <h4 className="text-xl font-semibold text-gray-800 mb-2">Responsive & Mobile-Ready</h4>
+            <p className="text-gray-600">
+              Boleh baca nota on-the-go, reload page cepat, experience smooth & pantas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call-to-Action Banner */}
+      <section className="bg-purple-700 text-white py-12 px-6 lg:px-20 text-center">
+        <h3 className="text-2xl sm:text-3xl font-bold">Dah Ready Untuk Study Gempak?</h3>
+        <p className="mt-2 max-w-lg mx-auto">
+          Daftar sekarang dan mula kongsi nota dengan geng study korang—Percuma je, lung sibuk! 👍
+        </p>
+        <Link
+          href="/register"
+          className="mt-6 inline-block px-8 py-3 bg-pink-500 text-white font-semibold rounded-md hover:bg-pink-600 transition"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Jom Daftar Percuma
+        </Link>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-200 py-8 px-6 lg:px-20">
+        <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
+          <div>
+            <h4 className="text-lg font-semibold text-gray-800 mb-2">Tentang NotaGeng</h4>
+            <p className="text-gray-600 text-sm">
+              NotaGeng ialah platform untuk rakan-rakan sekolah dan universiti berkongsi nota
+              dengan mudah. Build bersama semangat “geng belajar”.
+            </p>
+          </div>
+          <div className="flex flex-col space-y-2">
+            <h4 className="text-lg font-semibold text-gray-800 mb-2">Hubungi Kami</h4>
+            <a href="#" className="text-gray-600 text-sm hover:underline">
+              Terma & Syarat
+            </a>
+            <a href="#" className="text-gray-600 text-sm hover:underline">
+              Dasar Privasi
+            </a>
+            <a href="#" className="text-gray-600 text-sm hover:underline">
+              support@notageng.app
+            </a>
+          </div>
+        </div>
+        <div className="mt-8 text-center text-gray-500 text-xs">
+          © {new Date().getFullYear()} NotaGeng. All rights reserved.
+        </div>
       </footer>
-    </div>
+    </main>
   );
 }
