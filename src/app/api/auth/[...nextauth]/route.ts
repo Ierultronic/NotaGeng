@@ -30,7 +30,7 @@ export const authOptions: NextAuthOptions = {
     async session({ session, token, user }) {
       // `session.user.id` will be available on the client
       if (session.user && token.sub) {
-        session.user.id = token.sub;
+        session.user.name = token.sub;
       }
       return session;
     },
