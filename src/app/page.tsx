@@ -11,32 +11,34 @@ export default function Home() {
         {/* Left: Text */}
         <div className="w-full lg:w-1/2 space-y-6 text-center lg:text-left">
           <h2 className="text-4xl sm:text-5xl font-extrabold text-purple-800">
-            Kuliah, Tugasan, & Nota  
-            <span className="text-pink-500">— Semua Dalam Satu</span>
+            Kuliah, Tugasan, & Nota
+            <span className="text-pink-500"> — Semua Dalam Satu</span>
           </h2>
           <p className="text-gray-700 max-w-md mx-auto lg:mx-0 text-lg">
-            NotaGeng memudahkan korang berkongsi dan organize semua nota subjek.
-            Geng study jadi lebih seronok—tak payah risau hilang kertas!
+            NotaGeng memudahkan korang berkongsi dan organize semua nota subjek. Geng
+            study jadi lebih seronok — tak payah risau hilang kertas!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Link
-              href="/register"
-              className="px-6 py-3 bg-purple-700 text-white font-semibold rounded-md shadow hover:bg-purple-800 transition"
+            {/* Disabled “Daftar” button until auth is ready */}
+            <button
+              disabled
+              className="px-6 py-3 bg-purple-400 text-white font-semibold rounded-md shadow opacity-60 cursor-not-allowed"
             >
-              Jom Daftar
-            </Link>
-            <Link
-              href="/dashboard"
-              className="px-6 py-3 border-2 border-pink-500 text-pink-500 font-semibold rounded-md hover:bg-pink-500 hover:text-white transition"
+              Jom Daftar (Coming Soon)
+            </button>
+
+            {/* Disabled “Dashboard” button until auth is ready */}
+            <button
+              disabled
+              className="px-6 py-3 border-2 border-pink-300 text-pink-300 font-semibold rounded-md opacity-60 cursor-not-allowed"
             >
-              Explore Nota Shared
-            </Link>
+              Explore Nota Shared (Coming Soon)
+            </button>
           </div>
         </div>
 
         {/* Right: Illustration */}
         <div className="w-full lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
-          {/* Replace src with your own mascot/illustration */}
           <Image
             src="/illustrations/study-mascot.png"
             alt="Study Mascot"

@@ -1,17 +1,32 @@
+// src/app/api/auth/[...nextauth]/route.ts
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
+import { SupabaseAdapter } from "@next-auth/supabase-adapter";
+import { createClient } from "@supabase/supabase-js";
 
-export const authOptions: NextAuthOptions = {
+
+// 1) Create a Supabase server client using your service role key
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+
+const authOptions: NextAuthOptions = {
+  adapter: SupabaseAdapter({
+    url: supabaseUrl,
+    secret: supabaseServiceRoleKey,
+  }),
+
   secret: process.env.NEXTAUTH_SECRET,
 
   providers: [
-    // 1) Google OAuth
+    // Google OAuth
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    // 2) Email “Magic Link” provider
+
+    // Email “Magic Link” (optional)
     EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
@@ -25,10 +40,9 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 
-  // Optionally, customize session callback to include user.id in the session
   callbacks: {
-    async session({ session, token, user }) {
-      // `session.user.id` will be available on the client
+    async session({ session, token }) {
+      // Expose user.id in session so we can link notes later
       if (session.user && token.sub) {
         session.user.name = token.sub;
       }
@@ -36,12 +50,8 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  // You can optionally specify pages for sign in / error
   pages: {
-    signIn: "/login", // custom sign-in page
-    // signOut: "/auth/signout",
-    // error: "/auth/error",
-    // newUser: "/register", // if you want to redirect new users here
+    signIn: "/login",   // your custom login page
   },
 };
 
