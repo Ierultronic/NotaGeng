@@ -26,11 +26,11 @@ export default function Navbar() {
         <div className="hidden md:flex items-center space-x-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-900 caret-black" size={16} />
             <input
               type="text"
               placeholder="Search notes..."
-              className="pl-8 pr-4 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="pl-8 pr-4 py-1 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-900 caret-black focus:outline-none focus:ring-2 focus:ring-pink-400"
             />
           </div>
 
