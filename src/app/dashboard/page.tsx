@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase-client";
 import { authOptions } from "@/lib/auth";
+import NoteCard from "@/components/NoteCard";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -14,7 +15,7 @@ export default async function DashboardPage() {
   // Fetch the 3 most recent notes for this user
   const { data: notes, error } = await supabase
     .from("notes")
-    .select("id, title, content, slug, created_at")
+    .select("id, title, content, slug, subject:subjects(name), created_at")
     .eq("author_id", session.user.id)
     .order("created_at", { ascending: false })
     .limit(3);
@@ -47,19 +48,15 @@ export default async function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {recentNotes.length > 0 ? (
               recentNotes.map((note) => (
-                <Link
+                <NoteCard
                   key={note.id}
-                  href={`/notes/${note.slug}`}
-                  className="block p-6 bg-white rounded-2xl shadow hover:shadow-lg transition"
-                >
-                  <h2 className="text-lg font-semibold text-gray-800 mb-2">
-                    {note.title}
-                  </h2>
-                  <p className="text-gray-600 text-sm mb-4">{note.excerpt}</p>
-                  <time className="text-xs text-gray-400">
-                    {new Date(note.created_at).toLocaleDateString()}
-                  </time>
-                </Link>
+                  id={note.id}
+                  title={note.title}
+                  content={note.content}
+                  slug={note.slug}
+                  created_at={note.created_at}
+                  subjectName={note.subject?.name}
+                />
               ))
             ) : (
               <div className="col-span-full p-6 bg-white rounded-2xl shadow-sm text-center text-gray-500">

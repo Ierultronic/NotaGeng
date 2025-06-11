@@ -4,13 +4,9 @@ import { authOptions } from "@/lib/auth";
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import NoteCard from "@/components/NoteCard";
+import { supabase as supabaseAdmin } from "@/lib/supabase-client";
 
-// Server-side Supabase client (service role key) so we can bypass RLS
-const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { db: { schema: "public" } }
-);
 
 export default async function NotesPage() {
     // 1) Protect route
@@ -49,37 +45,15 @@ export default async function NotesPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {notes && notes.length > 0 ? (
                         notes.map((note) => (
-                            <article
+                            <NoteCard
                                 key={note.id}
-                                className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-shadow flex flex-col"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <h2 className="text-xl font-semibold text-gray-800">
-                                        {note.title}
-                                    </h2>
-                                    <time className="text-sm text-gray-500">
-                                        {new Date(note.created_at).toLocaleDateString()}
-                                    </time>
-                                </div>
-                                <p className="text-gray-600 flex-grow mb-4">
-                                    {note.content.length > 100
-                                        ? note.content.slice(0, 100) + "…"
-                                        : note.content}
-                                </p>
-                                <div className="flex justify-between items-center">
-                                    {note.subject?.name && (
-                                        <span className="text-sm bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
-                                            {note.subject.name}
-                                        </span>
-                                    )}
-                                    <Link
-                                        href={`/notes/${note.slug}`}
-                                        className="text-pink-500 font-medium hover:underline"
-                                    >
-                                        View →
-                                    </Link>
-                                </div>
-                            </article>
+                                id={note.id}
+                                title={note.title}
+                                content={note.content}
+                                slug={note.slug}
+                                created_at={note.created_at}
+                                subjectName={note.subject?.name}
+                            />
                         ))
                     ) : (
                         <div className="col-span-full p-6 bg-white rounded-2xl shadow-sm text-center text-gray-500">
