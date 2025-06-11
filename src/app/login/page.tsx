@@ -1,43 +1,41 @@
+// src/app/login/page.tsx
 "use client";
 
-import { useSearchParams } from "next/navigation"; // from Next.js App Router
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
+  // 1) Always call these hooks at the top:
   const { data: session, status } = useSession();
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // If already signed in, redirect to /dashboard
-  if (status === "authenticated") {
-    router.push("/dashboard");
-    return null;
+  // 2) Redirect **inside** a useEffect, never in render.
+  // only redirect if *both* status is authenticated *and* you see a real user ID
+  useEffect(() => {
+    if (status === "authenticated" && session?.user?.id) {
+      router.push("/dashboard");
+    }
+  }, [status, session, router]);
+
+  // 3) While loading, you can show a spinner or nothing:
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading…</p>
+      </div>
+    );
   }
 
-  // Grab ?error=Callback (or any other) from URL
-  const params = useSearchParams();
-  const errorType = params.get("error"); // e.g. "Callback"
-
+  // 4) Now the actual render for “not signed in yet”
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     await signIn("email", { email, callbackUrl: "/dashboard" });
     setLoading(false);
-  };
-
-  // Map NextAuth error codes to human messages:
-  const errorMessages: Record<string, string> = {
-    Callback: "Something went wrong when returning from Google. Please try again.",
-    OAuthAccountNotLinked:
-      "This Google account is already linked to another login method.",
-    Configuration:
-      "There is a problem with the authentication configuration. Contact the admin.",
-    AccessDenied: "You must grant permission to log in.",
-    // …add others if you like (e.g. SessionRequired, etc.)
   };
 
   return (
@@ -47,14 +45,7 @@ export default function LoginPage() {
           NotaGeng – Log Masuk
         </h1>
 
-        {/* If there’s an error, show it here */}
-        {errorType && (
-          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
-            {errorMessages[errorType] ||
-              "An unexpected error occurred. Please try again."}
-          </div>
-        )}
-
+        {/* Google Sign-In */}
         <button
           onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
           className="w-full flex items-center justify-center gap-2 px-4 py-3 mb-4 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition"
@@ -64,6 +55,7 @@ export default function LoginPage() {
 
         <div className="text-center text-gray-500 mb-4">atau</div>
 
+        {/* Email Magic Link */}
         <form onSubmit={handleEmailSignIn} className="space-y-4">
           <label className="block text-gray-700">Alamat Email</label>
           <input

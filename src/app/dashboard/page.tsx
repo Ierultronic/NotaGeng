@@ -1,14 +1,16 @@
 // src/app/dashboard/page.tsx
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { authOptions } from "@/lib/auth";
 
 export default async function DashboardPage() {
   // 1) Grab the current session on the server
-  const session = await getSession();
+  const session = await getServerSession(authOptions);
 
   // 2) If there's no session, send them back to /login
   if (!session) {
+    console.log("🔴 No session found, redirecting to /login");
     redirect("/login");
   }
 

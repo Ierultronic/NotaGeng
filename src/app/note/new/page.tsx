@@ -1,11 +1,14 @@
 // src/app/note/new/page.tsx
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 
 export default async function NewNotePage() {
   // Protect this page too
-  const session = await getSession();
+  const session = await getServerSession(authOptions);
+
   if (!session) {
+    console.log("🔴 No session found, redirecting to /login");
     redirect("/login");
   }
 
