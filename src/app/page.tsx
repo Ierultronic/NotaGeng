@@ -40,7 +40,7 @@ export default function Home() {
         {/* Right: Illustration */}
         <div className="w-full lg:w-1/2 mb-10 lg:mb-0 flex justify-center">
           <Image
-            src="/illustrations/study-mascot.png"
+            src="/illustrations/study-mascot2.png"
             alt="Study Mascot"
             width={400}
             height={400}
@@ -104,7 +104,7 @@ export default function Home() {
       <section className="bg-purple-700 text-white py-12 px-6 lg:px-20 text-center">
         <h3 className="text-2xl sm:text-3xl font-bold">Dah Ready Untuk Study Gempak?</h3>
         <p className="mt-2 max-w-lg mx-auto">
-          Daftar sekarang dan mula kongsi nota dengan geng study korang—Percuma je, lung sibuk! 👍
+          Daftar sekarang dan mula kongsi nota dengan geng study korang—Percuma je! 👍
         </p>
         <Link
           href="/register"
@@ -121,7 +121,7 @@ export default function Home() {
             <h4 className="text-lg font-semibold text-gray-800 mb-2">Tentang NotaGeng</h4>
             <p className="text-gray-600 text-sm">
               NotaGeng ialah platform untuk rakan-rakan sekolah dan universiti berkongsi nota
-              dengan mudah. Build bersama semangat “geng belajar”.
+              dengan mudah. Bina bersama semangat “geng belajar”.
             </p>
           </div>
           <div className="flex flex-col space-y-2">
